@@ -23,6 +23,11 @@ export default {
       data: data,
     };
   },
+  mounted(){
+    this.$router.push({
+      path:`/assets/AllItems`
+    })
+  }
 };
 </script>
 
