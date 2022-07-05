@@ -1,32 +1,66 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <h1>Multi tab model layout</h1>
+    <div class="container">
+      <aside class="sidebar">
+        <router-link active-class="active-side" :to="{path:`/${tab.title}`}" v-bind:key="tab.id" v-for="tab in data">{{
+          tab.title
+        }}</router-link>
+      </aside>
+      <div class="right-side">
+        <router-view :data="data"/>
+      </div>
+    </div>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+<script>
+import { data } from "./constants/data";
+export default {
+  name: "App",
+  data() {
+    return {
+      data: data,
+    };
+  },
+};
+</script>
+
+<style >
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1{
   text-align: center;
-  color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+a{
+  text-decoration: none;
+  color: black;
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.container{
+  display: flex;
+  gap: 5px;
+  border: 1px solid;
+  height: 80vh;
 }
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid;
+  height: 100%; 
+  width: max-content;
+  padding: 10px;
 
-nav a.router-link-exact-active {
-  color: #42b983;
+}
+.right-side{
+  flex-grow: 1;
+}
+.active-side{
+  border-bottom: 5px solid purple;
 }
 </style>
